@@ -19,6 +19,9 @@ public:
 
 private slots:
     void on_pushButtonCmdExec_clicked();
+    void on_cmdend();
+
+    void on_resultGetButton_clicked();
 
 private:
     Ui::MainWindow *ui;
