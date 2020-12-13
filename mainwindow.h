@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include <QProcess>
 #include <QStringList>
+#include <QDir>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -18,6 +19,7 @@ public:
     ~MainWindow();
 
 private slots:
+    void on_initCmdEnd();
     void on_pushButtonCmdExec_clicked();
     void on_cmdend();
     void on_cmdFinished(int);
@@ -25,11 +27,12 @@ private slots:
     void on_cmdendErr();
     void on_errorOccurred(QProcess::ProcessError);
 
-    void on_resultGetButton_clicked();
+    void on_showHelpButton_clicked();
 
 private:
     Ui::MainWindow *ui;
     QProcess process;
+    QProcess initProcess;
 
 };
 #endif // MAINWINDOW_H

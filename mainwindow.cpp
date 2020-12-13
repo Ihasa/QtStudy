@@ -6,11 +6,19 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow), process(this)
 {
     ui->setupUi(this);
+
     //connect(&process, SIGNAL(finished(int,QProcess::ExitStatus)), this, SLOT(on_cmdFinished(int)));
     connect(&process, SIGNAL(finished(int,QProcess::ExitStatus)), this, SLOT(on_cmdFinished2(int, QProcess::ExitStatus)));
     connect(&process, SIGNAL(readyReadStandardOutput()), this, SLOT(on_cmdend()));
     connect(&process, SIGNAL(readyReadStandardError()), this, SLOT(on_cmdendErr()));
     connect(&process, SIGNAL(errorOccurred(QProcess::ProcessError)), this, SLOT(on_errorOccurred(QProcess::ProcessError)));
+
+    connect(&initProcess, SIGNAL(readyReadStandardOutput()), this, SLOT(on_initCmdEnd()));
+
+    initProcess.start("git",QStringList("version"));
+
+    QDir dir = QDir::currentPath();
+    this->setWindowTitle(dir.absolutePath());
 }
 
 MainWindow::~MainWindow()
@@ -21,9 +29,13 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_pushButtonCmdExec_clicked()
 {
-    QStringList args("--version");
+    QStringList args;
+
+    args.append(ui->cmdList->currentText());
 
     process.start("git",args);
+
+    ui->execedCmdLabel->setText(process.program() +" "+ args.join(" "));
 
     //ui->resultLabel->setText("command started");
 
@@ -73,7 +85,16 @@ void MainWindow::on_cmdFinished2(int exitcode, QProcess::ExitStatus errorcode){
     ui->exitcodeLabel->setText(QString::number(errorcode) +" "+ QString::number(exitcode));
 }
 
-void MainWindow::on_resultGetButton_clicked()
+void MainWindow::on_initCmdEnd(){
+    ui->gitverLabel->setText(QString::fromLocal8Bit(initProcess.readAllStandardOutput()));
+}
+
+void MainWindow::on_showHelpButton_clicked()
 {
+    QStringList args = QStringList(ui->cmdList->currentText());
+    args.append("--help");
+    process.start("git",args);
+    ui->execedCmdLabel->setText(process.program() +" "+ args.join(" "));
+
     on_cmdend();
 }
