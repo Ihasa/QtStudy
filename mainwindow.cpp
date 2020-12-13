@@ -6,9 +6,11 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow), process(this)
 {
     ui->setupUi(this);
-
-    //connect(&process, SIGNAL(finished(int,QProcess::ExitStatus)), this, SLOT(on_cmdend()));
+    //connect(&process, SIGNAL(finished(int,QProcess::ExitStatus)), this, SLOT(on_cmdFinished(int)));
+    connect(&process, SIGNAL(finished(int,QProcess::ExitStatus)), this, SLOT(on_cmdFinished2(int, QProcess::ExitStatus)));
     connect(&process, SIGNAL(readyReadStandardOutput()), this, SLOT(on_cmdend()));
+    connect(&process, SIGNAL(readyReadStandardError()), this, SLOT(on_cmdendErr()));
+    connect(&process, SIGNAL(errorOccurred(QProcess::ProcessError)), this, SLOT(on_errorOccurred(QProcess::ProcessError)));
 }
 
 MainWindow::~MainWindow()
@@ -47,6 +49,29 @@ void MainWindow::on_cmdend(){
     ui->resultLabel->setText(result);
 }
 
+void MainWindow::on_cmdendErr(){
+    QByteArray array;
+    QString result;
+
+    array = process.readAllStandardError();
+    result = QString::fromLocal8Bit(array);
+
+    //result = "called";
+
+    ui->errorLabel->setText(result);
+}
+
+void MainWindow::on_errorOccurred(QProcess::ProcessError errorcode){
+    ui->errorcodeLabel->setText(QString::number(errorcode));
+}
+
+void MainWindow::on_cmdFinished(int exitcode){
+    ui->exitcodeLabel->setText(QString::number(exitcode));
+}
+
+void MainWindow::on_cmdFinished2(int exitcode, QProcess::ExitStatus errorcode){
+    ui->exitcodeLabel->setText(QString::number(errorcode) +" "+ QString::number(exitcode));
+}
 
 void MainWindow::on_resultGetButton_clicked()
 {

@@ -20,6 +20,10 @@ public:
 private slots:
     void on_pushButtonCmdExec_clicked();
     void on_cmdend();
+    void on_cmdFinished(int);
+    void on_cmdFinished2(int, QProcess::ExitStatus);
+    void on_cmdendErr();
+    void on_errorOccurred(QProcess::ProcessError);
 
     void on_resultGetButton_clicked();
 

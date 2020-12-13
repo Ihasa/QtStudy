@@ -32,12 +32,12 @@
      <rect>
       <x>9</x>
       <y>38</y>
-      <width>141</width>
+      <width>301</width>
       <height>151</height>
      </rect>
     </property>
     <property name="text">
-     <string>TextLabel</string>
+     <string>stdoutput</string>
     </property>
    </widget>
    <widget class="QPushButton" name="resultGetButton">
@@ -51,6 +51,45 @@
     </property>
     <property name="text">
      <string>GetResult</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="errorLabel">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>230</y>
+      <width>271</width>
+      <height>191</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>stderr</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="exitcodeLabel">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>60</y>
+      <width>50</width>
+      <height>12</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>exitstatus</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="errorcodeLabel">
+    <property name="geometry">
+     <rect>
+      <x>320</x>
+      <y>60</y>
+      <width>50</width>
+      <height>12</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>errorcode</string>
     </property>
    </widget>
   </widget>
