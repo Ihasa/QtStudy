@@ -5,6 +5,7 @@
 #include <QProcess>
 #include <QStringList>
 #include <QDir>
+#include <QMap>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -29,10 +30,15 @@ private slots:
 
     void on_showHelpButton_clicked();
 
+    void on_cmdList_activated(QString);
+
 private:
     Ui::MainWindow *ui;
     QProcess process;
     QProcess initProcess;
+    QMap<QString, QString> cmdDescMap;
+
+    QString getCmdDesc(QString);
 
 };
 #endif // MAINWINDOW_H

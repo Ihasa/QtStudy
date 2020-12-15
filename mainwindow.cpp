@@ -19,6 +19,13 @@ MainWindow::MainWindow(QWidget *parent)
 
     QDir dir = QDir::currentPath();
     this->setWindowTitle(dir.absolutePath());
+
+    cmdDescMap.insert("log","履歴を表示する");
+    cmdDescMap.insert("diff", "任意のリビジョン間の差分を表示する");
+    cmdDescMap.insert("status", "作業コピーの状況を表示する");
+    cmdDescMap.insert("branch", "ブランチを操作する");
+
+    ui->cmdDescText->setText(getCmdDesc(ui->cmdList->currentText()));
 }
 
 MainWindow::~MainWindow()
@@ -97,4 +104,17 @@ void MainWindow::on_showHelpButton_clicked()
     ui->execedCmdLabel->setText(process.program() +" "+ args.join(" "));
 
     on_cmdend();
+}
+
+void MainWindow::on_cmdList_activated(QString selected)
+{
+    ui->cmdDescText->setText(getCmdDesc(selected));
+}
+
+QString MainWindow::getCmdDesc(QString selected){
+    QString desc = "説明なし";
+    if(cmdDescMap.contains(selected)){
+        desc = cmdDescMap[selected];
+    }
+    return desc;
 }
