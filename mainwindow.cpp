@@ -26,6 +26,8 @@ MainWindow::MainWindow(QWidget *parent)
     cmdDescMap.insert("branch", "ブランチを操作する");
 
     ui->cmdDescText->setText(getCmdDesc(ui->cmdList->currentText()));
+
+    fileDialog.setFileMode(QFileDialog::DirectoryOnly);
 }
 
 MainWindow::~MainWindow()
@@ -117,4 +119,42 @@ QString MainWindow::getCmdDesc(QString selected){
         desc = cmdDescMap[selected];
     }
     return desc;
+}
+
+void MainWindow::on_selectDirButton_clicked()
+{
+    QString dirPath;
+    QDir dir;
+    QString gitMsg;
+    if(fileDialog.exec()){
+        dir = fileDialog.directory();
+        fileDialog.setDirectory(dir);
+
+        dirPath = dir.absolutePath();
+        process.setWorkingDirectory(dirPath);
+        ui->currentDirText->setText(dirPath);
+
+        if(isGitRepository(dir)){
+            gitMsg = "this folder is git repository";
+        } else {
+            gitMsg = "this folder is not git repository";
+        }
+        ui->isGitRepoLabel->setText(gitMsg);
+
+    }
+}
+
+bool MainWindow::isGitRepository(QDir dir){
+    bool res = false;
+
+    do{
+        if(dir.exists(".git")){
+            res = true;
+            break;
+        } else {
+            /* nothing */
+        }
+    }while(dir.cdUp());
+
+    return res;
 }

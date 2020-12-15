@@ -6,6 +6,7 @@
 #include <QStringList>
 #include <QDir>
 #include <QMap>
+#include <QFileDialog>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -32,13 +33,17 @@ private slots:
 
     void on_cmdList_activated(QString);
 
+    void on_selectDirButton_clicked();
+
 private:
     Ui::MainWindow *ui;
     QProcess process;
     QProcess initProcess;
     QMap<QString, QString> cmdDescMap;
+    QFileDialog fileDialog;
 
     QString getCmdDesc(QString);
+    bool isGitRepository(QDir);
 
 };
 #endif // MAINWINDOW_H
