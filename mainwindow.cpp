@@ -28,6 +28,8 @@ MainWindow::MainWindow(QWidget *parent)
     ui->cmdDescText->setText(getCmdDesc(ui->cmdList->currentText()));
 
     fileDialog.setFileMode(QFileDialog::DirectoryOnly);
+
+    stm = QScxmlStateMachine::fromFile("test.scxml");
 }
 
 MainWindow::~MainWindow()
@@ -43,8 +45,13 @@ void MainWindow::on_pushButtonCmdExec_clicked()
     args.append(ui->cmdList->currentText());
 
     process.start("git",args);
+stm->submitEvent("T1");
+QStringList act = stm->activeStateNames();
+QString str = (act.size() > 0) ? act[0] : "";
 
-    ui->execedCmdLabel->setText(process.program() +" "+ args.join(" "));
+    ui->execedCmdLabel->setText(process.program() +" "+ args.join(" ") + str);
+
+
 
     //ui->resultLabel->setText("command started");
 

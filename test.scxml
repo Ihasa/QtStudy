@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scxml xmlns="http://www.w3.org/2005/07/scxml" version="1.0" binding="early" xmlns:qt="http://www.qt.io/2015/02/scxml-ext" name="test" qt:editorversion="4.13.3">
+    <state id="State_1">
+        <qt:editorinfo scenegeometry="186.04;232.03;126.04;182.03;120;100" geometry="186.04;232.03;-60;-50;120;100"/>
+        <transition type="external" event="T1" target="State_2"/>
+    </state>
+    <state id="State_2">
+        <qt:editorinfo scenegeometry="186.04;383.32;126.04;333.32;120;100" geometry="186.04;383.32;-60;-50;120;100"/>
+        <transition type="external" event="T1" target="State_4">
+            <qt:editorinfo endTargetFactors="34.20;70.25" movePoint="10.22;13.29" localGeometry="77.68;-52.14;100.17;-65.42;129.81;-80.76"/>
+        </transition>
+    </state>
+    <state id="State_3">
+        <qt:editorinfo scenegeometry="435.45;515.18;375.45;465.18;120;100" geometry="435.45;515.18;-60;-50;120;100"/>
+        <transition type="external" target="Final_1"/>
+    </state>
+    <state id="State_4">
+        <qt:editorinfo scenegeometry="435.45;221.81;375.45;171.81;120;100" geometry="435.45;221.81;-60;-50;120;100"/>
+        <transition type="external" event="T1" target="State_1"/>
+        <transition type="external" event="T2" target="State_3"/>
+    </state>
+    <final id="Final_1">
+        <qt:editorinfo scenegeometry="186.04;515.18;166.04;495.18;40;40" geometry="186.04;515.18;-20;-20;40;40"/>
+    </final>
+</scxml>
