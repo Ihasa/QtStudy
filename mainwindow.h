@@ -7,6 +7,8 @@
 #include <QDir>
 #include <QMap>
 #include <QFileDialog>
+#include <QTextCodec>
+#include <QScxmlStateMachine>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -41,6 +43,7 @@ private:
     QProcess initProcess;
     QMap<QString, QString> cmdDescMap;
     QFileDialog fileDialog;
+    QScxmlStateMachine* stm;
 
     QString getCmdDesc(QString);
     bool isGitRepository(QDir);

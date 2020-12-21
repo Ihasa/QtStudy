@@ -68,11 +68,10 @@ QString str = (act.size() > 0) ? act[0] : "";
 void MainWindow::on_cmdend(){
     QByteArray array;
     QString result;
+    QTextCodec* codec = QTextCodec::codecForName(ui->encodingComboBox->currentText().toLocal8Bit());
 
     array = process.readAllStandardOutput();
-    result = QString::fromLocal8Bit(array);
-
-    //result = "called";
+    result = codec->toUnicode(array);//QString::fromLocal8Bit(array);
 
     ui->resultLabel->setText(result);
 }
@@ -80,11 +79,10 @@ void MainWindow::on_cmdend(){
 void MainWindow::on_cmdendErr(){
     QByteArray array;
     QString result;
+    QTextCodec* codec = QTextCodec::codecForName(ui->encodingComboBox->currentText().toLocal8Bit());
 
     array = process.readAllStandardError();
-    result = QString::fromLocal8Bit(array);
-
-    //result = "called";
+    result = codec->toUnicode(array);
 
     ui->errorLabel->setText(result);
 }
